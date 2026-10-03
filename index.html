@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamPad</title>
+    <!-- Favicon link -->
+    <link rel="icon" href="https://i.ibb.co/hxQ2ZZfs/download-1.png" type="image/png">
+    
+<style>
+  /* Direct Base64 embedding for OpenDyslexic-BoldItalic */
+  @font-face {
+    font-family: 'OpenDyslexic-BoldItalic';
+    src: url('data:font/woff2;charset=utf-8;base64,d09GMgABAAAAAAQwAAoAAAAABwQAAAOcAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAALAqBDgqBCAqBMAZgP2Fsc2UAAA==') format('woff2');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  /* Apply it directly to your text class */
+  .dyslexic-bold-italic {
+    font-family: 'OpenDyslexic-BoldItalic', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+  }
+  <style>
+  body {
+    background-color: white;
+    font-family: "SUSE", sans-serif;
+    color: black;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+    ALERT {
+    margin-top: 30px;
+    font-size: 2.2em;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #ff0000;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 
+    -1px -1px 0 #fff;
+    }
+    
+    h1 {
+    margin-top: 30px;
+    font-size: 2.2em;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #222;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 
+                 -1px -1px 0 #fff;
+   }
+  .calculator {
+    width: 320px;
+    background: #f7f7f7;
+    border: 2px solid #c8c8c8;
+    border-radius: 10px;
+    margin: 30px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    padding: 15px;
+  }
+
+  #display {
+    width: 90%;
+    height: 45px;
+    font-size: 1.3em;
+    text-align: right;
+    padding: 5px 10px;
+    border: 2px inset #ccc;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    box-shadow: inset 2px 2px 3px #ccc, inset -2px -2px 3px #fff;
+    font-family: "SUSE", sans-serif;
+    text-shadow: 1px 1px 1px #aaa;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  button {
+    padding: 15px;
+    font-size: 1em;
+    font-family: "SUSE", sans-serif;
+    font-weight: 600;
+    border: 2px solid #b0b0b0;
+    border-radius: 6px;
+    background: linear-gradient(to bottom, #f0f0f0, #cfcfcf);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.8),
+                 -1px -1px 1px rgba(0,0,0,0.2);
+  }
+
+  button:active {
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3);
+    transform: translateY(2px);
+    background: linear-gradient(to bottom, #dcdcdc, #b8b8b8);
+    text-shadow: inset 1px 1px 1px #666;
+  }
+
+  .equals {
+    background: linear-gradient(to bottom, #4da6ff, #0078d7);
+    color: white;
+    border-color: #005a9e;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+
+  .equals:active {
+    background: linear-gradient(to bottom, #0078d7, #005a9e);
+  }
+
+  .clear {
+    background: linear-gradient(to bottom, #000000, #ffffff);
+    color: white;
+    border-color: #990000;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+
+  .clear:active {
+    background: linear-gradient(to bottom, #cc0000, #990000);
+  }
+</style>
+</head>
+<body>
+
+<img src="https://i.ibb.co/4RQWB02h/6ac10c91f3e1a.webp" alt="6ac10c91f3e1a" border="0">
+
+<div class="calculator">
+  <input type="text" id="display" readonly>
+
+<div class="buttons">
+  <button onclick="append('1')">1</button>
+  <button onclick="append('2')">2</button>
+  <button onclick="append('3')">3</button>
+  <button onclick="append('4')">4</button>
+  <button onclick="append('5')">5</button>
+  <button onclick="append('6')">6</button>
+  <button onclick="append('7')">7</button>
+  <button onclick="append('8')">8</button>
+  <button onclick="append('9')">9</button>
+  <button onclick="append('0')">0</button>
+  <button onclick="append('.')">.</button>
+  <button onclick="calculate()" class="equals">=</button>
+  <button onclick="append('/')">÷</button>
+  <button onclick="append('*')">×</button>
+  <button onclick="append('-')">−</button>
+  <button onclick="append('+')">+</button>
+</div>
+
+    <button onclick="clearDisplay()" class="clear">CLEAR</button>
+  </div>
+</div>
+
+<script>
+  const display = document.getElementById('display');
+
+  function append(value) {
+    display.value += value;
+  }
+
+  function clearDisplay() {
+    display.value = '';
+  }
+
+  function calculate() {
+    try {
+      display.value = eval(display.value);
+    } catch {
+      display.value = 'Error';
+    }
+  }
+</script>
+
+</body>
+</html>
