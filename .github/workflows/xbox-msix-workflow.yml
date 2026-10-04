@@ -18,8 +18,8 @@ jobs:
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Force -Path .\XboxPackage\Assets
-        # Copies the JamBox Original executable from the correct unpacked folder path
-        Copy-Item -Path ".\dist\win-unpacked\JamBox Original.exe" -Destination .\XboxPackage\
+        # Copies the JamBox Original executable from your AppFiles folder
+        Copy-Item -Path ".\AppFiles\JamBox Original.exe" -Destination .\XboxPackage\
         Copy-Item -Path .\AppxManifest.xml -Destination .\XboxPackage\
         Copy-Item -Path .\Assets\* -Destination .\XboxPackage\Assets\ -Recurse
 
