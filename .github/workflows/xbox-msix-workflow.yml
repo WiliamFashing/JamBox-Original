@@ -1,0 +1,35 @@
+name: Build Xbox MSIX Package
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allows you to trigger it manually from the GitHub website
+
+jobs:
+  package:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # This structures a build directory for the packaging tool
+    - name: Prepare Package Layout
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Force -Path .\XboxPackage\Assets
+        # Copies the JamBox Original executable and configuration files
+        Copy-Item -Path ".\JamBox Original.exe" -Destination .\XboxPackage\
+        Copy-Item -Path .\AppxManifest.xml -Destination .\XboxPackage\
+        Copy-Item -Path .\Assets\* -Destination .\XboxPackage\Assets\ -Recurse
+
+    - name: Package to MSIX using MakeAppx
+      shell: pwsh
+      run: |
+        & "C:\Program Files (x86)\Windows Kits\10\App Certification Kit\MakeAppx.exe" pack /d .\XboxPackage /p ".\JamBan Original.msix" /o
+
+    - name: Upload MSIX Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: JamBan-Original-MSIX
+        path: ".\JamBan Original.msix"
