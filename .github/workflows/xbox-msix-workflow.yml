@@ -26,10 +26,10 @@ jobs:
     - name: Package to MSIX using MakeAppx
       shell: pwsh
       run: |
-        & "C:\Program Files (x86)\Windows Kits\10\App Certification Kit\MakeAppx.exe" pack /d .\XboxPackage /p ".\JamBan Original.msix" /o
+        & "C:\Program Files (x86)\Windows Kits\10\App Certification Kit\MakeAppx.exe" pack /d .\XboxPackage /p "./JamBan-Original.msix" /o
 
     - name: Upload MSIX Artifact
       uses: actions/upload-artifact@v4
       with:
         name: JamBan-Original-MSIX
-        path: ".\JamBan Original.msix"
+        path: "./JamBan-Original.msix"
